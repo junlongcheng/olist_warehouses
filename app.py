@@ -57,14 +57,6 @@ else:
         ],
         showlegend=False,
     )
-   
-    # Update Figure Layout
-    fig.update_layout(
-        autosize=False,
-        width=800,
-        height=800,
-        margin=dict(l=0, r=0, b=0, t=0)
-    )
-    
+
     # Display Plot
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)  # Expand plot to full width
