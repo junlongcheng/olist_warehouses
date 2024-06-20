@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.cluster import KMeans
-import plotly.graph_objects as go  # Switch to using plotly.graph_objects
+import plotly.express as px
 
 # 1. Data Preparation
 df = pd.read_csv('permanently_cleaned_geolocation_data.csv')
@@ -38,51 +38,25 @@ else:
     # 5. Cluster Centers
     cluster_centers = filtered_df.groupby('cluster')[['longitude', 'latitude']].mean().reset_index()
 
-    # 6. Mapbox Plot (Using plotly.graph_objects for more customization)
-    fig = go.Figure()
-
-    # Add Scattermapbox trace for data points
-    fig.add_trace(
-        go.Scattermapbox(
-            lat=filtered_df['latitude'],
-            lon=filtered_df['longitude'],
-            mode='markers',
-            marker=go.scattermapbox.Marker(
-                size=8,  # Adjust the size as needed
-                color=filtered_df['cluster'],
-                opacity=0.5,  # Adjust the opacity as needed
-            ),
-            hovertext=filtered_df['object'],  # Display object name on hover
-        )
-    )
-
-    # Add Scattermapbox trace for warehouse markers
-    fig.add_trace(
-        go.Scattermapbox(
-            lat=cluster_centers['latitude'],
-            lon=cluster_centers['longitude'],
-            mode='markers',
-            marker=go.scattermapbox.Marker(
-                size=12,
-                color='red',
-            ),
-            hoverinfo="text",
-            text=[
-                f"Warehouse {i + 1}<br>Lat: {lat:.4f}<br>Lon: {lon:.4f}"
-                for i, lat, lon in zip(
-                    cluster_centers.index, cluster_centers["latitude"], cluster_centers["longitude"]
-                )
-            ],
-        )
-    )
-
-    fig.update_layout(
-        mapbox_style="carto-positron",
-        margin={"r": 0, "t": 0, "l": 0, "b": 0},
-        autosize=False,
-        width=800,
-        height=800,
+    # 6. Mapbox Plot
+    fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", color="cluster",
+                            hover_name="object",
+                            mapbox_style="carto-positron")
+    fig.add_scattermapbox(
+        lat=cluster_centers["latitude"],
+        lon=cluster_centers["longitude"],
+        mode="markers",
+        marker=dict(size=20, color="red"),
+        name="Warehouses",
+        hoverinfo="text",
+        text=[
+            f"Warehouse {i + 1}<br>Lat: {lat:.4f}<br>Lon: {lon:.4f}"
+            for i, lat, lon in zip(
+                cluster_centers.index, cluster_centers["latitude"], cluster_centers["longitude"]
+            )
+        ],
+        showlegend=False,
     )
 
     # Display Plot
-    st.plotly_chart(fig) 
+    st.plotly_chart(fig, use_container_width=True)  # Expand plot to full width
