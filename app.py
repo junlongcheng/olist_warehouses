@@ -41,7 +41,8 @@ else:
     # 6. Mapbox Plot
     fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", color="cluster",
                             hover_name="object",
-                            mapbox_style="carto-positron")
+                            mapbox_style="carto-positron",
+                            opacity=0.5)  # Adjust the opacity value here (0.5 = 50% transparency)
     fig.add_scattermapbox(
         lat=cluster_centers["latitude"],
         lon=cluster_centers["longitude"],
@@ -58,5 +59,13 @@ else:
         showlegend=False,
     )
 
+    # Update Figure Layout
+    fig.update_layout(
+        autosize=False,
+        width=800,
+        height=800,
+        margin=dict(l=0, r=0, b=0, t=0)
+    )
+    
     # Display Plot
-    st.plotly_chart(fig, use_container_width=True)  # Expand plot to full width
+    st.plotly_chart(fig) 
