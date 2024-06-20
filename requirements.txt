@@ -1,5 +1,4 @@
-dash
 pandas
 scikit-learn
 plotly
-dash-bootstrap-components
+streamlit
