@@ -113,4 +113,4 @@ def update_plot(selected_objects, selected_states, num_clusters):
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8080)
+    app.run_server(debug=True, port=8068)
