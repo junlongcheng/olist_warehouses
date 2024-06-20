@@ -43,9 +43,6 @@ else:
                             hover_name="object",
                             mapbox_style="carto-positron")
     
-        # Update Marker Opacity (within fig.update_traces)
-    fig.update_traces(marker=dict(opacity=0.5)) # Set opacity here
-    
     fig.add_scattermapbox(
         lat=cluster_centers["latitude"],
         lon=cluster_centers["longitude"],
