@@ -59,4 +59,4 @@ else:
     )
 
     # Display Plot
-    st.plotly_chart(fig, use_container_width=True, width=1000, height=1000)
+    st.plotly_chart(fig, use_container_width=True, height=1000)
