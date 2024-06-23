@@ -39,9 +39,6 @@ else:
     cluster_centers = filtered_df.groupby('cluster')[['longitude', 'latitude']].mean().reset_index()
 
     # 6. Mapbox Plot
-    fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", color="cluster",
-                            hover_name="object",
-                            mapbox_style="carto-positron")
     fig.add_scattermapbox(
         lat=cluster_centers["latitude"],
         lon=cluster_centers["longitude"],
