@@ -46,7 +46,7 @@ else:
         lat=cluster_centers["latitude"],
         lon=cluster_centers["longitude"],
         mode="markers",
-        marker=dict(size=15, color="red"),
+        marker=dict(size=10, color="red"),
         name="Warehouses",
         hoverinfo="text",
         text=[
