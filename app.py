@@ -42,8 +42,7 @@ else:
     fig = px.scatter_mapbox(filtered_df, lat="latitude", lon="longitude", color="cluster",
             hover_name="object",
             mapbox_style="carto-positron",
-            color_discrete_sequence=["green"]
-            )
+            color_discrete_sequence=["green"])
     fig.add_scattermapbox(
         lat=cluster_centers["latitude"],
         lon=cluster_centers["longitude"],
