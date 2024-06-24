@@ -32,7 +32,7 @@ else:
     filtered_df = df[df['object'].isin(selected_objects) & df['state'].isin(selected_states)]
 
     # 4. Clustering
-    kmeans = KMeans(n_clusters=num_clusters).fit(filtered_df[['longitude', 'latitude']])
+    kmeans = KMeans(n_clusters=num_clusters, random_state=42).fit(filtered_df[['longitude', 'latitude']])
     filtered_df['cluster'] = kmeans.labels_
 
     # 5. Cluster Centers
